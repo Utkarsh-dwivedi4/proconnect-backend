@@ -1,18 +1,11 @@
-import mysql from 'mysql2';
+import pkg from "pg";
+const { Pool } = pkg;
 
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '689421@Kk',
-  database: 'proconnect'
-});
-
-db.connect((err) => {
-  if (err) {
-    console.error('Database connection failed:', err);
-  } else {
-    console.log('MySQL Connected');
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
   }
 });
 
-export default db;
+export default pool;
