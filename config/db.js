@@ -1,12 +1,18 @@
-import mongoose from 'mongoose';
+import mysql from 'mysql2';
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect('mongodb://127.0.0.1:27017/proconnect');
-    console.log('MongoDB Connected');
-  } catch (error) {
-    console.error(error);
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '689421@Kk',
+  database: 'proconnect'
+});
+
+db.connect((err) => {
+  if (err) {
+    console.error('Database connection failed:', err);
+  } else {
+    console.log('MySQL Connected');
   }
-};
+});
 
-export default connectDB;
+export default db;

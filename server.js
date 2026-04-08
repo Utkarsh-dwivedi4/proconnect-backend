@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import connectDB from './config/db.js';
+import db from './config/db.js';
 
 import authRoutes from './routes/authRoutes.js';
 import professionalRoutes from './routes/professionalRoutes.js';
@@ -12,7 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-connectDB();
+// ✅ NO connectDB() here
 
 app.get('/', (req, res) => {
   res.send('Backend running 🚀');
