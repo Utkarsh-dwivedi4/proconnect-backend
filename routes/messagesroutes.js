@@ -1,9 +1,8 @@
 import express from "express";
-import db from "../db.js";
+import db from "../config/db.js";
 
 const router = express.Router();
 
-// POST message
 router.post("/", async (req, res) => {
   const { user_email, professional_id, message } = req.body;
 
@@ -13,14 +12,14 @@ router.post("/", async (req, res) => {
       [user_email, professional_id, message]
     );
 
-    res.json({
+    return res.json({
       message: "Message saved successfully",
-      data: result.rows[0]
+      data: result.rows[0],
     });
 
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Database error" });
+    console.error("DB ERROR:", err);
+    return res.status(500).json({ error: "Database error" });
   }
 });
 

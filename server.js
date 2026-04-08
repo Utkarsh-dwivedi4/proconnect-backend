@@ -1,28 +1,27 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import db from './config/db.js';
-
-import authRoutes from './routes/authRoutes.js';
-import professionalRoutes from './routes/professionalRoutes.js';
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import messageRoutes from "./routes/messagesroutes.js";
 
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+// ✅ Middleware
+app.use(cors()); // VERY IMPORTANT
 app.use(express.json());
 
-// ✅ NO connectDB() here
+// ✅ Routes
+app.use("/api/messages", messageRoutes);
 
-app.get('/', (req, res) => {
-  res.send('Backend running 🚀');
+// ✅ Test route
+app.get("/", (req, res) => {
+  res.send("Backend running successfully 🚀");
 });
 
-app.use('/api/auth', authRoutes);
-app.use('/api/professionals', professionalRoutes);
-
+// ✅ Port
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
